@@ -1,0 +1,23 @@
+- if address.logradouro.present?
+	logradouro = "#{address.logradouro}".max_size(70)
+
+- if destinatario.email.present?
+	email = "#{destinatario.email}".max_size(100)
+
+- if address.numero.present?
+	numero_residencia = "#{address.numero}".max_size(8)
+
+- if address.complemento.present?
+	complemento = "#{address.complemento}".max_size(50)
+
+- if address.ponto_referencia.present?
+	ponto_referencia = "#{address.ponto_referencia}".max_size(100)
+
+- if address.bairro.present?
+	bairro = "#{address.bairro}".max_size(30)
+
+- if address.codigotom.present?
+	cidade = BrNfe::Helper.only_number(address.codigotom).max_size(9)
+
+- if address.cep.present?
+	cep = BrNfe::Helper.only_number(address.cep).max_size(8)

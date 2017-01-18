@@ -1,0 +1,78 @@
+- if rps = lote_rps.first
+	nfse
+		- if identificador.present?
+			identificador = identificador
+	
+		rps
+			- if rps.numero.present?
+				nro_recibo_provisorio = rps.numero
+
+			- if rps.serie.present?
+				serie_recibo_provisorio = rps.serie.to_i
+
+			- if rps.data_emissao.present?
+				data_emissao_recibo_provisorio = value_date(rps.data_emissao)
+				hora_emissao_recibo_provisorio = (rps.data_emissao).strftime("%H:%M:%S")
+	
+		nf
+			numero = "#{nfe_number}".max_size(9)
+			situacao = 'C'
+
+			valor_total = value_monetary(rps.valor_liquido, 2)
+
+			- if rps.desconto_incondicionado.present? or rps.desconto_condicionado.present?
+				- desconto = (rps.desconto_incondicionado.to_f + rps.desconto_condicionado.to_f)
+				valor_desconto = value_monetary(desconto, 2)
+
+			- if rps.valor_ir.present?
+				valor_ir = value_monetary(rps.valor_ir, 2)
+
+			- if rps.valor_inss.present?
+				valor_inss = value_monetary(rps.valor_inss, 2)
+
+			- if rps.valor_csll.present?
+				valor_contribuicao_social = value_monetary(rps.valor_csll, 2)
+
+			- if rps.outras_retencoes.present?
+				valor_rps = value_monetary(rps.outras_retencoes, 2)
+
+			- if rps.valor_pis.present?
+				valor_pis = value_monetary(rps.valor_pis, 2)
+
+			- if rps.valor_cofins.present?
+				valor_cofins = value_monetary(rps.valor_cofins, 2)
+			
+			- if rps.description.present?
+				observacao = "#{rps.description}".max_size(1000)
+
+		prestador
+			cpfcnpj = BrNfe::Helper::CpfCnpj.new(emitente.cpf_cnpj).sem_formatacao
+			- if emitente.endereco.codigotom.present?
+					cidade = "#{emitente.endereco.codigotom}".max_size(9)
+
+		tomador
+			- if endereco_informado.present?
+				endereco_informado = "#{endereco_informado}".max_size(1)
+
+			- cpf_cnpj = BrNfe::Helper::CpfCnpj.new(rps.destinatario.cpf_cnpj)
+			- if cpf_cnpj.cnpj?
+				tipo = "J"
+				cpfcnpj = cpf_cnpj.sem_formatacao
+			- elsif cpf_cnpj.cpf?				
+				tipo  = "F"
+				cpfcnpj  = cpf_cnpj.sem_formatacao
+						
+			- if rps.destinatario.inscricao_estadual.present?
+				ie = "#{rps.destinatario.inscricao_estadual}".max_size(16)
+
+			nome_razao_social = "#{rps.destinatario.razao_social}".max_size(100)
+			- if rps.destinatario.nome_fantasia.present?
+				sobrenome_nome_fantasia = "#{rps.destinatario.nome_fantasia}".max_size(100)
+			
+			= render_xml '_address', address: rps.destinatario.endereco, destinatario: rps.destinatario, dir_path: "#{BrNfe.root}/lib/br_nfe/service/sc/rio_do_sul/xml"
+			= render_xml '_contact', contact: rps.destinatario, dir_path: "#{BrNfe.root}/lib/br_nfe/service/sc/rio_do_sul/xml"
+
+		itens
+			- rps.items.each do |item|
+				= render_xml '_service_item', item: item, rps: rps, dir_path: "#{BrNfe.root}/lib/br_nfe/service/sc/rio_do_sul/xml"
+		

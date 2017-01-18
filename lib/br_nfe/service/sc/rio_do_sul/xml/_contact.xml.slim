@@ -1,0 +1,11 @@
+- if contact.ddd_fone_comercial.present? and contact.fone_comercial.present?
+	ddd_fone_comercial = "#{contact.ddd_fone_comercial}".max_size(3)
+	fone_comercial = "#{contact.fone_comercial}".max_size(9)
+
+- if contact.ddd_fone_residencial.present? and contact.fone_residencial.present?
+	ddd_fone_residencial = "#{contact.ddd_fone_residencial}".max_size(3)
+	fone_residencial = "#{contact.fone_residencial}".max_size(9)
+
+- if contact.ddd_fone_fax.present? and contact.fone_fax.present?
+	ddd_fone_fax = "#{contact.ddd_fone_fax}".max_size(3)
+	fone_fax = "#{contact.fone_fax}".max_size(9)

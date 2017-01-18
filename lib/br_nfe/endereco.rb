@@ -20,6 +20,9 @@ module BrNfe
 		attr_accessor :codigo_pais # defaul: 1058 (Brasil)
 		attr_accessor :nome_pais   # defaul: BRASIL
 
+		attr_accessor :codigotom         # Código da cidade onde o emissor está estabelecido, junto à Receita Federal.
+		attr_accessor :ponto_referencia  # Ponto de referência do endereço do estabelecimento ou residência.
+
 		# Código IBGE do Estado (UF)
 		# Caso não seja setado um valor no atributo, irá pegar os primeiros 2
 		# dígitos do código IBGE do município.

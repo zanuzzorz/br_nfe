@@ -1,0 +1,24 @@
+lista
+	tributa_municipio_prestador = "#{item.tributa_municipio_prestador}"
+	codigo_local_prestacao_servico = BrNfe::Helper.only_number(item.codigo_local_prestacao_servico).max_size(9)
+	unidade_codigo = BrNfe::Helper.only_number(item.unidade_codigo).max_size(9)
+	unidade_quantidade = item.quantidade.to_i
+	unidade_valor_unitario = value_monetary(item.valor_unitario, 2)
+
+	-if item.codigo_item_lista_servico.present?
+		codigo_item_lista_servico = BrNfe::Helper.only_number(item.codigo_item_lista_servico).max_size(9)
+	-else
+		codigo_item_lista_servico = BrNfe::Helper.only_number(rps.item_lista_servico).max_size(9)
+
+	descritivo = "#{item.description}".max_size(1000)
+	aliquota_item_lista_servico = value_monetary(item.iss_aliquota,    4)
+	situacao_tributaria = BrNfe::Helper.only_number(item.cst).max_size(4)
+	valor_tributavel = value_monetary(item.valor_total,   2)
+
+	-if rps.deducoes.present?
+		valor_deducao = BrNfe::Helper.only_number(rps.deducoes).max_size(15)
+		
+	-if rps.iss_retido.present?
+		valor_issrf = BrNfe::Helper.only_number(rps.iss_retido).max_size(15)
+
+

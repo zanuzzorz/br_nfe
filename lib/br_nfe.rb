@@ -138,6 +138,12 @@ module BrNfe
 				autoload :Base
 				autoload :EmissionRPS
 				autoload :Cancellation
+			end	
+			module RioDoSul
+				extend ActiveSupport::Autoload
+				autoload :Base
+				autoload :CancelaNfse
+				autoload :RecepcaoLoteRps
 			end
 		end
 	end

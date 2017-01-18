@@ -54,6 +54,40 @@ module BrNfe
 			# <b>Tipo: </b> _Float_
 			attr_accessor :valor_total
 
+
+			###########################################################################################
+
+			# Código do subitem da lista de serviços, em conformidade com a Lei Complementar 116/2003. 
+			#
+			# <b>Tipo: </b> _Integer_
+			attr_accessor :codigo_item_lista_servico
+
+
+			# Esta tag serve para informar onde será recolhido o imposto e deve ser preenchida com 
+			# "0" ou "N" quando NÃO TRIBUTAR P/ PRESTADOR e "1" ou "S" quando TRIBUTAR P/ PRESTADOR.
+			#
+			# <b>Type: </b> _Text_
+			# <b>Size: </b> 1
+			# <b>Default: </b> 0
+			#
+			attr_accessor :tributa_municipio_prestador 
+
+			# Código da cidade onde o serviço foi prestado, junto à Receita Federal.
+			#
+			# <b>Type: </b> _Integer_
+			# <b>Size: </b> 9
+			#
+			attr_accessor :codigo_local_prestacao_servico
+
+			# Código das unidades de serviços pré cadastradas. <OPCIONAL>
+			# OBS: Código sobre variações de Prefeitura para Prefeitura. O campo torna-se obrigatório a partir 
+			# do momento em que o Município utiliza esta configuração.
+			#
+			# <b>Type: </b> _Integer_
+			# <b>Size: </b> 9
+			#
+			attr_accessor :unidade_codigo
+
 			
 			def default_values
 				{

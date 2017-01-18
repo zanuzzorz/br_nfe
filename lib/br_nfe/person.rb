@@ -21,6 +21,13 @@ module BrNfe
 		attr_accessor :optante_simples_nacional
 		attr_accessor :incentivo_fiscal
 
+		attr_accessor :ddd_fone_fax
+		attr_accessor :ddd_fone_comercial
+		attr_accessor :ddd_fone_residencial
+		attr_accessor :fone_fax
+		attr_accessor :fone_comercial		
+		attr_accessor :fone_residencial	
+
 
 		validates :cpf_cnpj, :razao_social, presence: true
 		
